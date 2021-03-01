@@ -2,14 +2,17 @@
 require 'fileutils'
 require 'pry'
 
-def snail(number)
+def snail(array)
+  array.empty? ? [] : array.shift + snail(array.transpose.reverse)
+end
+
+def snail_orig(number)
   x_max = y_max = number.first.size - 1
   x_min = y_min = 0
   array_size = (x_max + 1)**2
   answer = []
 
-  while true
-
+  loop do
     xs = (x_min..x_max).to_a
     y = y_min
     answer += xs.map { |x| number[y][x] }
@@ -33,6 +36,5 @@ def snail(number)
     answer += ys.map { |y| number[y][x] }
     x_min += 1 # => move the left side in
     return answer if answer.size == array_size
-
   end
 end
